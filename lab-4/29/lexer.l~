@@ -1,0 +1,32 @@
+/* example.lex */
+
+%{
+#include <stdio.h>
+#include "parser.tab.h"
+#include "global.h"
+%}
+
+%option noyywrap
+
+%%
+
+[ \t]+		{ /* ignore whitespace */ }
+"("   		{ return LPAREN; }
+")"   		{ return RPAREN; }
+"+"   		{ return '+'; }
+"-"   		{ return '-'; }
+"*"   		{ return STAR; }
+"/"	  		{ return DIV; }
+"<"	  		{ return LESS; }
+">"	  		{ return GREATER; }
+"%"	  		{ return MOD; }
+"&"	  		{ return AND; }
+"|"	  		{ return OR; }
+";"	  		{ return ';';}
+\n			{ ++lineno; return NEWLINE; }
+[0-9]+    	{ yylval = atoi(yytext); return NUM; }
+.         	{ printf("Ignoring invalid character '%s'\n", yytext); }
+
+%%
+
+int lineno = 1;

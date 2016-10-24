@@ -1,0 +1,3 @@
+25: 25.c
+	CPPFLAGS += -g
+	gcc -g -Wall 25.c -o 25
